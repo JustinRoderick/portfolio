@@ -1,4 +1,4 @@
-Personal portfolio website that is a [Next.js](https://nextjs.org/) hosted on [`vercel`](https://vercel.com).
+Personal portfolio website using [Next.js](https://nextjs.org/) hosted on [`vercel`](https://vercel.com).
 
 ## Getting Started
 
