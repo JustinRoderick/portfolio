@@ -5,8 +5,25 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Justin Roderick Portfolio",
-  description: "",
+  title: "Justin Roderick",
+  description:
+    "Justin Roderick is an aspiring software engineer and current student at the University of Central Florida.",
+  keywords: [
+    "Justin Roderick",
+    "UCF",
+    "Software Engineer",
+    "Web Developer",
+    "Developer",
+    "Computer Science",
+    "Engineer",
+    "Justin",
+    "Roderick",
+    "University of Central Florida",
+    "Software",
+  ],
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -16,7 +33,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={
+          "flex min-h-full h-screen overflow-hidden flex-col bg-cover bg-blue-950 antialiased"
+        }
+      >
+        {children}
+      </body>
     </html>
   );
 }
