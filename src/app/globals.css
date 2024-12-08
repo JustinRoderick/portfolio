@@ -67,3 +67,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.gradient {
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    rgba(255, 0, 150, 0.5),
+    transparent 80%
+  );
+}
