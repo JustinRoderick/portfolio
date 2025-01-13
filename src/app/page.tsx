@@ -1,9 +1,21 @@
 "use client";
 import Image from "next/image";
 //import Cursor from "@/components/cursor";
-import { useEffect, useState } from "react";
+import About from "./_components/about";
+import Projects from "./_components/projects";
+import Experience from "./_components/experience";
+
+import { useEffect, useState, useRef } from "react";
 
 export default function Home() {
+  const aboutRef = useRef<HTMLDivElement | null>(null);
+  const projectsRef = useRef<HTMLDivElement | null>(null);
+  const experienceRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="h-screen snap-y snap-mandatory overflow-y-scroll">
       <div className="flex flex-row items-center justify-center">
