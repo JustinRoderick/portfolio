@@ -21,10 +21,10 @@ export default function Home() {
   return (
     <div className="h-screen grid grid-cols-2">
       <div className="h-full flex flex-col items-center justify-center">
-        <Spotlight>
+        {/* <Spotlight> */}
           <h1>Justin Roderick</h1>
           <p>Software Engineering Student at UCF</p>
-        </Spotlight>
+        {/* </Spotlight> */}
       </div>
       <div className="h-full snap-y snap-mandatory overflow-y-scroll flex flex-col items-center justify-center">
         <ScrollArea className="w-full h-full">
