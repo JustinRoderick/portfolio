@@ -22,8 +22,12 @@ export default function Home() {
     <div className="h-screen grid grid-cols-2">
       <div className="h-full flex flex-col items-center justify-center">
         {/* <Spotlight> */}
-          <h1>Justin Roderick</h1>
-          <p>Software Engineering Student at UCF</p>
+        <h1 className="text-3xl text-white font-bold w-full text-center animate-fade-down">
+          Justin Roderick
+        </h1>
+        <p className="text-xl text-white w-full text-center animate-fade-down">
+          Software Engineering Student at UCF
+        </p>
         {/* </Spotlight> */}
       </div>
       <div className="h-full snap-y snap-mandatory overflow-y-scroll flex flex-col items-center justify-center">
