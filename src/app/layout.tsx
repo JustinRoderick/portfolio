@@ -21,6 +21,13 @@ export const metadata: Metadata = {
     "University of Central Florida",
     "Software",
   ],
+  openGraph: {
+        type: "website",
+        title: "Justin Roderick",
+        description:
+            "Justin Roderick is an aspiring software engineer and current student at the University of Central Florida.",
+        url: "https://justinroderick.dev",
+    },
   icons: {
     icon: "/favicon.ico",
   },
