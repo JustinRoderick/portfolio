@@ -2,13 +2,12 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-const useSpotlightEffect = (config = {}) => {
+const useSpotlightEffect = (config = {}, enabled = true) => {
   const {
     spotlightSize = 200,
     spotlightIntensity = 0.8,
     fadeSpeed = 0.1,
     glowColor = '255, 255, 255',
-    pulseSpeed = 2000,
   } = config;
 
   const canvasRef = useRef(null);
@@ -16,10 +15,21 @@ const useSpotlightEffect = (config = {}) => {
   const spotlightPos = useRef({ x: 0, y: 0 });
   const targetPos = useRef({ x: 0, y: 0 });
   const animationFrame = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
+    if (!enabled) { 
+      if (canvasRef.current) {
+        const ctx = canvasRef.current.getContext('2d');
+        if (ctx) {
+          ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        }
+      }
+      return;
+    }
+
     const canvas = canvasRef.current;
+    if (!canvas) return; 
+
     const ctx = canvas.getContext('2d');
     ctxRef.current = ctx;
 
@@ -34,15 +44,22 @@ const useSpotlightEffect = (config = {}) => {
 
     const handleMouseMove = (e) => {
       targetPos.current = { x: e.clientX, y: e.clientY };
-      setIsHovered(true);
     };
 
     const handleMouseLeave = () => {
-      setIsHovered(false);
     };
 
     const render = () => {
-      if (!canvas || !ctx) return;
+      if (!canvas || !ctx || !enabled) { 
+        if (animationFrame.current) {
+          cancelAnimationFrame(animationFrame.current);
+          animationFrame.current = null;
+        }
+        if (canvas && ctx) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        return;
+      }
 
       // Smooth position transition
       spotlightPos.current.x = lerp(
@@ -58,14 +75,7 @@ const useSpotlightEffect = (config = {}) => {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Create dark overlay
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Calculate pulse effect
-      const pulseScale =
-        1 + 0.1 * Math.sin((Date.now() / pulseSpeed) * Math.PI * 2);
-      const currentSpotlightSize = spotlightSize * pulseScale;
+      const currentSpotlightSize = spotlightSize;
 
       // Create spotlight gradient
       const gradient = ctx.createRadialGradient(
@@ -81,12 +91,12 @@ const useSpotlightEffect = (config = {}) => {
       gradient.addColorStop(0, `rgba(${glowColor}, ${spotlightIntensity})`);
       gradient.addColorStop(
         0.5,
-        `rgba(${glowColor}, ${spotlightIntensity * 0.5})`
+        `rgba(${glowColor}, ${spotlightIntensity * 0.7})`
       );
-      gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      gradient.addColorStop(1, `rgba(${glowColor}, 0)`);
 
       // Apply spotlight effect
-      ctx.globalCompositeOperation = 'destination-out';
+      ctx.globalCompositeOperation = 'source-over';
       ctx.fillStyle = gradient;
       ctx.beginPath();
       ctx.arc(
@@ -108,7 +118,7 @@ const useSpotlightEffect = (config = {}) => {
         spotlightPos.current.y,
         currentSpotlightSize * 1.2
       );
-      glowGradient.addColorStop(0, `rgba(${glowColor}, 0.2)`);
+      glowGradient.addColorStop(0, `rgba(${glowColor}, 0.1)`);
       glowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = glowGradient;
       ctx.beginPath();
@@ -128,17 +138,32 @@ const useSpotlightEffect = (config = {}) => {
     window.addEventListener('resize', resizeCanvas);
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseleave', handleMouseLeave);
-    render();
+    if (enabled) { 
+        targetPos.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 }; 
+        spotlightPos.current = { ...targetPos.current }; 
+        render();
+    }
+
+    // Store canvas in a variable for the cleanup function
+    const currentCanvas = canvasRef.current;
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      document.addEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mousemove', handleMouseMove); 
       document.removeEventListener('mouseleave', handleMouseLeave);
       if (animationFrame.current) {
         cancelAnimationFrame(animationFrame.current);
+        animationFrame.current = null;
+      }
+      // Clear canvas on cleanup if it was enabled
+      if (currentCanvas) { // Use the stored variable
+        const cleanupCtx = currentCanvas.getContext('2d');
+        if (cleanupCtx) {
+            cleanupCtx.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
+        }
       }
     };
-  }, [spotlightSize, spotlightIntensity, fadeSpeed, glowColor, pulseSpeed]);
+  }, [enabled, spotlightSize, spotlightIntensity, fadeSpeed, glowColor]); 
 
   return canvasRef;
 };
