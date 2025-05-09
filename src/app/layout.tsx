@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import SpotlightProvider from './spotlight-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -45,7 +46,7 @@ export default function RootLayout({
           'flex min-h-full h-screen overflow-hidden flex-col bg-cover bg-blue-950 antialiased'
         }
       >
-        {children}
+        <SpotlightProvider>{children}</SpotlightProvider>
       </body>
     </html>
   );
