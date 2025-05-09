@@ -14,10 +14,61 @@ export default function Home() {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const projectsRef = useRef<HTMLDivElement | null>(null);
   const experienceRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+  const [activeSection, setActiveSection] = useState<string>('about');
+
+  const scrollToSection = (
+    ref: React.RefObject<HTMLDivElement>,
+    sectionId: string
+  ) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
+    setActiveSection(sectionId);
   };
+
+  useEffect(() => {
+    const scrollableDiv = scrollContainerRef.current;
+    if (!scrollableDiv) return;
+
+    const observerOptions = {
+      root: scrollableDiv,
+      rootMargin: '0px',
+      threshold: 0.6,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
+
+    const sections = [
+      { ref: aboutRef, id: 'about' },
+      { ref: projectsRef, id: 'projects' },
+      { ref: experienceRef, id: 'experience' },
+    ];
+
+    sections.forEach((section) => {
+      if (section.ref.current) {
+        observer.observe(section.ref.current);
+      }
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        if (section.ref.current) {
+          observer.unobserve(section.ref.current);
+        }
+      });
+    };
+  }, [aboutRef, projectsRef, experienceRef, scrollContainerRef]);
 
   return (
     <div className="h-screen grid grid-cols-2">
@@ -30,33 +81,42 @@ export default function Home() {
           Software Engineering Student at UCF
         </p>
         <div className="flex flex-col gap-4 mt-8">
-          <Button variant="outline" onClick={() => scrollToSection(aboutRef)}>
+          <Button
+            className={`text-white transition-all duration-300 ${activeSection === 'about' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
+            variant="ghost"
+            onClick={() => scrollToSection(aboutRef, 'about')}
+          >
             About
           </Button>
           <Button
-            variant="outline"
-            onClick={() => scrollToSection(projectsRef)}
+            className={`text-white transition-all duration-300 ${activeSection === 'projects' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
+            variant="ghost"
+            onClick={() => scrollToSection(projectsRef, 'projects')}
           >
             Projects
           </Button>
           <Button
-            variant="outline"
-            onClick={() => scrollToSection(experienceRef)}
+            className={`text-white transition-all duration-300 ${activeSection === 'experience' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
+            variant="ghost"
+            onClick={() => scrollToSection(experienceRef, 'experience')}
           >
             Experience
           </Button>
         </div>
         {/* </Spotlight> */}
       </div>
-      <div className="h-full snap-y snap-mandatory overflow-y-scroll flex flex-col items-center justify-center">
+      <div
+        ref={scrollContainerRef}
+        className="h-full snap-y snap-mandatory overflow-y-scroll flex flex-col items-center justify-center"
+      >
         <ScrollArea className="w-full h-full">
-          <div ref={aboutRef}>
+          <div id="about" ref={aboutRef}>
             <About />
           </div>
-          <div ref={projectsRef}>
+          <div id="projects" ref={projectsRef}>
             <Projects />
           </div>
-          <div ref={experienceRef}>
+          <div id="experience" ref={experienceRef}>
             <Experience />
           </div>
         </ScrollArea>
@@ -64,47 +124,3 @@ export default function Home() {
     </div>
   );
 }
-
-// 'use client';
-// import { HTMLAttributes } from 'react';
-// import useSpotlightEffect from '@/hooks/use-spotlight';
-
-// // Define an interface for the spotlight configuration
-// interface SpotlightConfig {
-//   radius?: number;
-//   brightness?: number;
-//   color?: string;
-//   smoothing?: number;
-// }
-
-// // Combine props with potential HTML canvas attributes
-// interface SpotlightCursorProps extends HTMLAttributes<HTMLCanvasElement> {
-//   config?: SpotlightConfig;
-// }
-
-// const SpotlightCursor = ({
-//   config = {},
-//   className,
-//   ...rest
-// }: SpotlightCursorProps) => {
-//   // Provide default configuration if not specified
-//   const spotlightConfig = {
-//     radius: 200,
-//     brightness: 0.15,
-//     color: '#ffffff',
-//     smoothing: 0.1,
-//     ...config,
-//   };
-
-//   const canvasRef = useSpotlightEffect(spotlightConfig);
-
-//   return (
-//     <canvas
-//       ref={canvasRef}
-//       className={`fixed top-0 left-0 pointer-events-none z-[9999] w-full h-full ${className}`}
-//       {...rest}
-//     />
-//   );
-// };
-
-// export default SpotlightCursor;
