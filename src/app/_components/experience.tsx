@@ -15,10 +15,10 @@ export default function Experience() {
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            <h2 className="text-3xl text-white font-bold tracking-tighter sm:text-4xl md:text-5xl">
               Experience
             </h2>
-            <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            <p className="max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-muted-foreground">
               A summary of my professional journey and accomplishments.
             </p>
           </div>
@@ -27,12 +27,12 @@ export default function Experience() {
           {experience.map((exp, index) => (
             <Card
               key={index}
-              className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300"
+              className="flex flex-col h-full transition-all duration-300 bg-transparent border-none hover:bg-none hover:shadow-[0_0_6px_rgba(0,0,0,0.5)]"
             >
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between">
                   <div>
-                    <CardTitle className="text-xl font-semibold">
+                    <CardTitle className="text-xl text-white font-semibold">
                       {exp.company}
                     </CardTitle>
                     <CardDescription className="text-sm text-muted-foreground">

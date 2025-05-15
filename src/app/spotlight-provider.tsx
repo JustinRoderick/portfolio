@@ -18,7 +18,8 @@ const SpotlightProvider: React.FC<SpotlightProviderProps> = ({ children }) => {
 
       const handleResize = () => {
         const updatedDesktopCheck =
-          window.matchMedia('(pointer: fine)').matches && window.innerWidth > 768;
+          window.matchMedia('(pointer: fine)').matches &&
+          window.innerWidth > 768;
         setIsDesktop(updatedDesktopCheck);
       };
 
@@ -28,10 +29,10 @@ const SpotlightProvider: React.FC<SpotlightProviderProps> = ({ children }) => {
   }, []);
 
   const spotlightConfig = {
-    glowColor: '59, 130, 246', // Default bright blue (rgb(59, 130, 246) - Tailwind blue-500)
-    spotlightSize: 250,       // Slightly larger for a softer effect
-    spotlightIntensity: 0.6,  // Adjusted intensity
-    fadeSpeed: 0.25,          // CHANGED: Increased from 0.08 for closer following
+    glowColor: '112, 26, 117', // Default bright blue (rgb(59, 130, 246) - Tailwind blue-500)
+    spotlightSize: 280, // Slightly larger for a softer effect
+    spotlightIntensity: 0.4, // Adjusted intensity
+    fadeSpeed: 0.25, // CHANGED: Increased from 0.08 for closer following
   };
 
   const canvasRef = useSpotlightEffect(spotlightConfig, isDesktop);
@@ -49,7 +50,7 @@ const SpotlightProvider: React.FC<SpotlightProviderProps> = ({ children }) => {
             width: '100vw',
             height: '100vh',
             pointerEvents: 'none',
-            zIndex: 9999, // Ensure it's on top of other content
+            zIndex: -1,
           }}
         />
       )}
