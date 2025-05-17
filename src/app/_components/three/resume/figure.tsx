@@ -1,13 +1,17 @@
+'use client';
+
 import React, { useRef, useMemo, useState } from 'react';
 import { useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import { useFrame } from '@react-three/fiber';
-import { group } from 'console';
 
 const SvgFigure = () => {
   const groupRef = useRef<THREE.Group | null>(null);
-  const svgData = useLoader(SVGLoader, '/public/resume.svg');
+  const svgData = useLoader(
+    SVGLoader,
+    'https://storage.googleapis.com/shapeshift-bucket-1/uploads/1747281042661-reshot-icon-resume-rk2htz6gua.svg'
+  );
 
   useFrame(({ clock }) => {
     const group = groupRef.current;

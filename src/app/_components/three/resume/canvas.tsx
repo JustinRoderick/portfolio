@@ -1,3 +1,5 @@
+'use client';
+
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import SvgFigure from './figure';
