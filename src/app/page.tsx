@@ -5,7 +5,13 @@ import Projects from './_components/projects';
 import Experience from './_components/experience';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
-import { CustomCanvas } from './_components/three/resume/canvas';
+import dynamic from 'next/dynamic';
+
+const CustomCanvas = dynamic(
+  () =>
+    import('./_components/three/resume/canvas').then((mod) => mod.CustomCanvas),
+  { ssr: false, loading: () => <p>Loading 3D Canvas...</p> }
+);
 
 import { useEffect, useState, useRef } from 'react';
 
