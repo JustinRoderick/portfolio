@@ -6,7 +6,7 @@ import SvgFigure from './figure';
 import { Suspense } from 'react';
 
 const Loading = () => {
-  return <Text>Loading</Text>;
+  return <h1>Loading</h1>;
 };
 
 const Scene = () => {
@@ -21,10 +21,13 @@ const Scene = () => {
 
 export const CustomCanvas = () => {
   return (
-    <Canvas camera={{ position: [0, 0, 50] }}>
-      <Suspense fallback={<Loading />}>
-        <Scene />
-      </Suspense>
-    </Canvas>
+    <div>
+      {/* <Canvas camera={{ position: [0, 0, 50] }}>
+        <Suspense fallback={<Loading />}>
+          <Scene />
+        </Suspense>
+      </Canvas> */}
+      <h1>Text</h1>
+    </div>
   );
 };
