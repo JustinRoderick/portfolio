@@ -29,10 +29,9 @@ const SpotlightProvider: React.FC<SpotlightProviderProps> = ({ children }) => {
   }, []);
 
   const spotlightConfig = {
-    glowColor: '112, 26, 117', // Default bright blue (rgb(59, 130, 246) - Tailwind blue-500)
-    spotlightSize: 280, // Slightly larger for a softer effect
-    spotlightIntensity: 0.4, // Adjusted intensity
-    fadeSpeed: 0.25, // CHANGED: Increased from 0.08 for closer following
+    glowColor: '112, 26, 117',
+    spotlightSize: 280,
+    fadeSpeed: 0.25,
   };
 
   const canvasRef = useSpotlightEffect(spotlightConfig, isDesktop);
