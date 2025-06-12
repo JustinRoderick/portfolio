@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import SpotlightProvider from './spotlight-provider';
+import SpotlightProvider from './_components/spotlight-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
