@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import useSpotlightEffect from '../hooks/useSpotlightEffect';
+import useSpotlightEffect from '../../hooks/useSpotlightEffect';
 
 interface SpotlightProviderProps {
   children: React.ReactNode;
