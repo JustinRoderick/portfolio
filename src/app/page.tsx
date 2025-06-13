@@ -10,7 +10,14 @@ import dynamic from 'next/dynamic';
 const CustomCanvas = dynamic(
   () =>
     import('./_components/three/resume/canvas').then((mod) => mod.CustomCanvas),
-  { ssr: false, loading: () => <p>Loading 3D Canvas...</p> }
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-full w-full items-center justify-center">
+        <p>Loading 3D Scene...</p>
+      </div>
+    ),
+  }
 );
 
 import { useEffect, useState, useRef } from 'react';
@@ -109,7 +116,7 @@ export default function Home() {
           </Button>
         </div>
         <div className="mt-12 flex flex-row gap-6 p-4 items-center justify-center">
-          <div className="w-16 h-16 transition-all duration-300 ease-in-out hover:scale-110">
+          <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
             <CustomCanvas />
           </div>
           {/* Placeholders for other icons can go here */}
@@ -117,7 +124,6 @@ export default function Home() {
           {/* <div className="w-16 h-16"><p className='text-white'>LI</p></div> */}
           {/* <div className="w-16 h-16"><p className='text-white'>EM</p></div> */}
         </div>
-        {/* </Spotlight> */}
       </div>
       <div
         ref={scrollContainerRef}
