@@ -47,6 +47,7 @@ export default function RootLayout({
         }
       >
         <SpotlightProvider>{children}</SpotlightProvider>
+        {/* {children} */}
       </body>
     </html>
   );
