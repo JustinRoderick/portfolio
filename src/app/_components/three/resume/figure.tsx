@@ -45,7 +45,7 @@ const SvgFigure: React.FC<SvgFigureProps> = ({ svgPath }) => {
     const globalSize = new THREE.Vector2();
     globalBox.getSize(globalSize);
 
-    const desiredSize = 18;
+    const desiredSize = 15;
     const maxDim = Math.max(globalSize.x, globalSize.y);
     const scale = maxDim > 0 ? desiredSize / maxDim : 1;
 

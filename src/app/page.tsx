@@ -86,31 +86,30 @@ export default function Home() {
 
   return (
     <div className="h-screen grid grid-cols-2">
-      <div className="h-full flex flex-col items-center justify-start pt-24">
-        {/* <Spotlight> */}
-        <h1 className="text-3xl text-white font-bold w-full text-center animate-fade-down">
+      <div className="h-full flex flex-col items-center justify-start pt-24 pl-20">
+        <h1 className="text-4xl p-6 text-white font-bold w-full text-center animate-fade-down xl:text-5xl">
           Justin Roderick
         </h1>
-        <p className="text-xl text-white w-full text-center animate-fade-down">
-          Software Engineering Student at UCF
+        <p className="text-lg pb-10 text-white w-full text-center animate-fade-down xl:text-2xl">
+          Software Engineering Student @ UCF
         </p>
-        <div className="flex flex-col gap-4 mt-8">
+        <div className="flex flex-col gap-6 mt-8">
           <Button
-            className={`text-white hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'about' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
+            className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'about' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
             variant="ghost"
             onClick={() => scrollToSection(aboutRef, 'about')}
           >
             About
           </Button>
           <Button
-            className={`text-white hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'projects' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
+            className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'projects' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
             variant="ghost"
             onClick={() => scrollToSection(projectsRef, 'projects')}
           >
             Projects
           </Button>
           <Button
-            className={`text-white hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'experience' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
+            className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'experience' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
             variant="ghost"
             onClick={() => scrollToSection(experienceRef, 'experience')}
           >
@@ -118,7 +117,7 @@ export default function Home() {
           </Button>
         </div>
 
-        <div className="mt-12 flex flex-row gap-6 p-4 items-center justify-center">
+        <div className="mt-20 flex flex-row gap-6 p-4 items-center justify-center">
           <Link href="https://github.com/justinroderick">
             <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
               <Suspense
