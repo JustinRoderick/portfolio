@@ -54,7 +54,7 @@ const SvgFigure: React.FC<SvgFigureProps> = ({ svgPath }) => {
       const shapes = SVGLoader.createShapes(path);
 
       const material = new THREE.MeshBasicMaterial({
-        color: '#f6f6f6',
+        color: path.color,
         side: THREE.DoubleSide,
         depthWrite: false,
       });
