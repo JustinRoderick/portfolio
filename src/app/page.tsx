@@ -18,8 +18,7 @@ const CustomCanvas = dynamic(
   () =>
     import('./_components/three/resume/canvas').then((mod) => mod.CustomCanvas),
   {
-    ssr: false
-    // We'll use per-instance Suspense for more granular loading fallbacks
+    ssr: false,
   }
 );
 
@@ -122,15 +121,52 @@ export default function Home() {
         <div className="mt-12 flex flex-row gap-6 p-4 items-center justify-center">
           <Link href="https://github.com/justinroderick">
             <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
-              <Suspense fallback={<Image src="/github.svg" alt="GitHub" width={96} height={96} />}>
+              <Suspense
+                fallback={
+                  <Image
+                    src="/github.svg"
+                    alt="GitHub"
+                    width={96}
+                    height={96}
+                  />
+                }
+              >
                 <CustomCanvas svgPath="/github.svg" />
               </Suspense>
             </div>
           </Link>
-          {/* Placeholders for other icons can go here */}
-          {/* <div className="w-16 h-16"><p className='text-white'>GH</p></div> */}
-          {/* <div className="w-16 h-16"><p className='text-white'>LI</p></div> */}
-          {/* <div className="w-16 h-16"><p className='text-white'>EM</p></div> */}
+          <Link href="https://linkedin.com/in/justinroderick">
+            <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
+              <Suspense
+                fallback={
+                  <Image
+                    src="/linkedin.svg"
+                    alt="LinkedIn"
+                    width={96}
+                    height={96}
+                  />
+                }
+              >
+                <CustomCanvas svgPath="/linkedin.svg" />
+              </Suspense>
+            </div>
+          </Link>
+          <Link href="https://justinroderick.dev/resume.pdf">
+            <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
+              <Suspense
+                fallback={
+                  <Image
+                    src="/resume.svg"
+                    alt="Resume"
+                    width={96}
+                    height={96}
+                  />
+                }
+              >
+                <CustomCanvas svgPath="/resume.svg" />
+              </Suspense>
+            </div>
+          </Link>
         </div>
       </div>
       <div
