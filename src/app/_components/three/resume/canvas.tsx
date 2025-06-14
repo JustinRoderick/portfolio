@@ -1,34 +1,31 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Html } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import SvgFigure from './figure';
-import { Suspense } from 'react';
 
-const Loading = () => {
-  return (
-    <Html center>
-      <p style={{ color: 'white' }}>Loading...</p>
-    </Html>
-  );
-};
+interface SceneProps {
+  svgPath: string;
+}
 
-const Scene = () => {
+interface CustomCanvasProps {
+  svgPath: string;
+}
+
+const Scene: React.FC<SceneProps> = ({ svgPath }) => {
   return (
     <>
       <ambientLight intensity={1.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
-      <SvgFigure />
+      <SvgFigure svgPath={svgPath} />
     </>
   );
 };
 
-export const CustomCanvas = () => {
+export const CustomCanvas: React.FC<CustomCanvasProps> = ({ svgPath }) => {
   return (
     <Canvas camera={{ position: [0, 0, 50], fov: 35 }}>
-      <Suspense fallback={<Loading />}>
-        <Scene />
-      </Suspense>
+      <Scene svgPath={svgPath} />
     </Canvas>
   );
 };

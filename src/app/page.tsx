@@ -6,21 +6,24 @@ import Experience from './_components/experience';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 const CustomCanvas = dynamic(
   () =>
     import('./_components/three/resume/canvas').then((mod) => mod.CustomCanvas),
   {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-full w-full items-center justify-center">
-        <p>Loading 3D Scene...</p>
-      </div>
-    ),
+    ssr: false
+    // We'll use per-instance Suspense for more granular loading fallbacks
   }
 );
 
-import { useEffect, useState, useRef } from 'react';
+import { Suspense, useEffect, useState, useRef } from 'react';
 
 export default function Home() {
   const aboutRef = useRef<HTMLDivElement | null>(null);
@@ -115,10 +118,15 @@ export default function Home() {
             Experience
           </Button>
         </div>
+
         <div className="mt-12 flex flex-row gap-6 p-4 items-center justify-center">
-          <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
-            <CustomCanvas />
-          </div>
+          <Link href="https://github.com/justinroderick">
+            <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
+              <Suspense fallback={<Image src="/github.svg" alt="GitHub" width={96} height={96} />}>
+                <CustomCanvas svgPath="/github.svg" />
+              </Suspense>
+            </div>
+          </Link>
           {/* Placeholders for other icons can go here */}
           {/* <div className="w-16 h-16"><p className='text-white'>GH</p></div> */}
           {/* <div className="w-16 h-16"><p className='text-white'>LI</p></div> */}

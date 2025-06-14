@@ -4,9 +4,13 @@ import * as THREE from 'three';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import { useFrame } from '@react-three/fiber';
 
-const SvgFigure = () => {
+interface SvgFigureProps {
+  svgPath: string;
+}
+
+const SvgFigure: React.FC<SvgFigureProps> = ({ svgPath }) => {
   const groupRef = useRef<THREE.Group | null>(null);
-  const svgData = useLoader(SVGLoader, '/github.svg');
+  const svgData = useLoader(SVGLoader, svgPath);
 
   useFrame(({ clock }) => {
     const group = groupRef.current;
@@ -41,7 +45,7 @@ const SvgFigure = () => {
     const globalSize = new THREE.Vector2();
     globalBox.getSize(globalSize);
 
-    const desiredSize = 20;
+    const desiredSize = 18;
     const maxDim = Math.max(globalSize.x, globalSize.y);
     const scale = maxDim > 0 ? desiredSize / maxDim : 1;
 
@@ -60,7 +64,7 @@ const SvgFigure = () => {
           steps: 11,
           depth: 0,
           bevelEnabled: true,
-          bevelThickness: 0.7,
+          bevelThickness: 0.9,
           bevelSize: 0,
           bevelOffset: 0,
           bevelSegments: 1,
