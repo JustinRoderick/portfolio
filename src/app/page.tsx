@@ -3,7 +3,6 @@ import Image from 'next/image';
 import About from './_components/about';
 import Projects from './_components/projects';
 import Experience from './_components/experience';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -13,6 +12,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const CustomCanvas = dynamic(
   () =>
@@ -32,20 +33,37 @@ export default function Home() {
 
   const [activeSection, setActiveSection] = useState<string>('about');
 
+  const { width } = useWindowSize();
+  const isDesktop = width ? width >= 1024 : false;
+
   const scrollToSection = (
     ref: React.RefObject<HTMLDivElement>,
     sectionId: string
   ) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    const target = isDesktop ? scrollContainerRef.current : window;
+    if (!ref.current) return;
+
+    target?.scrollTo({
+      top: ref.current.offsetTop,
+      behavior: 'smooth',
+    });
     setActiveSection(sectionId);
   };
 
+  const handleWheel = (event: React.WheelEvent) => {
+    // This should now work correctly!
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop += event.deltaY;
+    }
+  };
+
   useEffect(() => {
-    const scrollableDiv = scrollContainerRef.current;
-    if (!scrollableDiv) return;
+    const scrollableRoot = isDesktop ? scrollContainerRef.current : null;
+    if (!isDesktop && !window) return;
+    if (isDesktop && !scrollableRoot) return;
 
     const observerOptions = {
-      root: scrollableDiv,
+      root: scrollableRoot,
       rootMargin: '0px',
       threshold: 0.6,
     };
@@ -82,18 +100,21 @@ export default function Home() {
         }
       });
     };
-  }, [aboutRef, projectsRef, experienceRef, scrollContainerRef]);
+  }, [aboutRef, projectsRef, experienceRef, scrollContainerRef, isDesktop]);
 
   return (
-    <div className="h-screen grid grid-cols-2">
-      <div className="h-full flex flex-col items-center justify-start pt-24 pl-20">
+    <div
+      className="flex flex-col lg:grid lg:grid-cols-2 lg:h-screen"
+      onWheel={isDesktop ? handleWheel : undefined}
+    >
+      <div className="flex flex-col items-center justify-start pt-16 px-4 lg:pt-24 lg:pl-20 lg:px-0">
         <h1 className="text-4xl p-6 text-white font-bold w-full text-center animate-fade-down xl:text-5xl">
           Justin Roderick
         </h1>
         <p className="text-lg pb-10 text-white w-full text-center animate-fade-down xl:text-2xl">
           Software Engineering Student @ UCF
         </p>
-        <div className="flex flex-col gap-6 mt-8">
+        <div className="flex flex-row lg:flex-col gap-6 mt-4 lg:mt-8">
           <Button
             className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'about' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
             variant="ghost"
@@ -117,9 +138,9 @@ export default function Home() {
           </Button>
         </div>
 
-        <div className="mt-20 flex flex-row gap-6 p-4 items-center justify-center">
+        <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
           <Link href="https://github.com/justinroderick">
-            <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
+            <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
               <Suspense
                 fallback={
                   <Image
@@ -135,7 +156,7 @@ export default function Home() {
             </div>
           </Link>
           <Link href="https://linkedin.com/in/justinroderick">
-            <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
+            <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
               <Suspense
                 fallback={
                   <Image
@@ -151,7 +172,7 @@ export default function Home() {
             </div>
           </Link>
           <Link href="https://justinroderick.dev/resume.pdf">
-            <div className="w-24 h-24 transition-all duration-300 ease-in-out hover:scale-110">
+            <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
               <Suspense
                 fallback={
                   <Image
@@ -168,21 +189,20 @@ export default function Home() {
           </Link>
         </div>
       </div>
+
       <div
         ref={scrollContainerRef}
-        className="h-full snap-y snap-mandatory overflow-y-scroll flex flex-col items-center justify-center"
+        className="w-full lg:h-screen lg:overflow-y-scroll lg:snap-y lg:snap-mandatory"
       >
-        <ScrollArea className="w-full h-full">
-          <div id="about" ref={aboutRef}>
-            <About />
-          </div>
-          <div id="projects" ref={projectsRef}>
-            <Projects />
-          </div>
-          <div id="experience" ref={experienceRef}>
-            <Experience />
-          </div>
-        </ScrollArea>
+        <div id="about" ref={aboutRef}>
+          <About />
+        </div>
+        <div id="projects" ref={projectsRef}>
+          <Projects />
+        </div>
+        <div id="experience" ref={experienceRef}>
+          <Experience />
+        </div>
       </div>
     </div>
   );
