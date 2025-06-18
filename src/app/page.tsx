@@ -16,8 +16,7 @@ import {
 import { useWindowSize } from '../hooks/useWindowSize';
 
 const CustomCanvas = dynamic(
-  () =>
-    import('./_components/three/resume/canvas').then((mod) => mod.CustomCanvas),
+  () => import('./_components/three/canvas').then((mod) => mod.CustomCanvas),
   {
     ssr: false,
   }
