@@ -50,7 +50,6 @@ export default function Home() {
   };
 
   const handleWheel = (event: React.WheelEvent) => {
-    // This should now work correctly!
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop += event.deltaY;
     }
