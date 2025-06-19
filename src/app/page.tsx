@@ -6,12 +6,6 @@ import Experience from './_components/experience';
 import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 
 import { useWindowSize } from '../hooks/useWindowSize';
 
@@ -49,15 +43,8 @@ export default function Home() {
     setActiveSection(sectionId);
   };
 
-  const handleWheel = (event: React.WheelEvent) => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTop += event.deltaY;
-    }
-  };
-
   useEffect(() => {
     const scrollableRoot = isDesktop ? scrollContainerRef.current : null;
-    if (!isDesktop && !window) return;
     if (isDesktop && !scrollableRoot) return;
 
     const observerOptions = {
@@ -98,99 +85,98 @@ export default function Home() {
         }
       });
     };
-  }, [aboutRef, projectsRef, experienceRef, scrollContainerRef, isDesktop]);
+  }, [isDesktop]);
 
   return (
-    <div
-      className="flex flex-col lg:grid lg:grid-cols-2 lg:h-screen"
-      onWheel={isDesktop ? handleWheel : undefined}
-    >
-      <div className="flex flex-col items-center justify-start pt-16 px-4 lg:pt-24 lg:pl-20 lg:px-0">
-        <h1 className="text-4xl p-6 text-white font-bold w-full text-center animate-fade-down xl:text-5xl">
-          Justin Roderick
-        </h1>
-        <p className="text-lg pb-10 text-white w-full text-center animate-fade-down xl:text-2xl">
-          Software Engineering Student @ UCF
-        </p>
-        <div className="flex flex-row lg:flex-col gap-6 mt-4 lg:mt-8">
-          <Button
-            className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'about' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
-            variant="ghost"
-            onClick={() => scrollToSection(aboutRef, 'about')}
-          >
-            About
-          </Button>
-          <Button
-            className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'projects' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
-            variant="ghost"
-            onClick={() => scrollToSection(projectsRef, 'projects')}
-          >
-            Projects
-          </Button>
-          <Button
-            className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'experience' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
-            variant="ghost"
-            onClick={() => scrollToSection(experienceRef, 'experience')}
-          >
-            Experience
-          </Button>
-        </div>
+    <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-screen">
+      <div className="flex flex-col items-center justify-start pt-16 px-4 lg:sticky lg:top-0 lg:justify-center lg:pt-0 lg:pl-20 lg:px-0">
+        <div className="flex flex-col items-center">
+          <h1 className="text-4xl p-6 text-white font-bold w-full text-center animate-fade-down xl:text-5xl">
+            Justin Roderick
+          </h1>
+          <p className="text-lg pb-10 text-white w-full text-center animate-fade-down xl:text-2xl">
+            Software Engineering Student @ UCF
+          </p>
+          <div className="flex flex-row lg:flex-col gap-6 mt-4 lg:mt-8">
+            <Button
+              className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'about' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
+              variant="ghost"
+              onClick={() => scrollToSection(aboutRef, 'about')}
+            >
+              About
+            </Button>
+            <Button
+              className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'projects' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
+              variant="ghost"
+              onClick={() => scrollToSection(projectsRef, 'projects')}
+            >
+              Projects
+            </Button>
+            <Button
+              className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'experience' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
+              variant="ghost"
+              onClick={() => scrollToSection(experienceRef, 'experience')}
+            >
+              Experience
+            </Button>
+          </div>
 
-        <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
-          <Link href="https://github.com/justinroderick">
-            <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
-              <Suspense
-                fallback={
-                  <Image
-                    src="/github.svg"
-                    alt="GitHub"
-                    width={96}
-                    height={96}
-                  />
-                }
-              >
-                <CustomCanvas svgPath="/github.svg" />
-              </Suspense>
-            </div>
-          </Link>
-          <Link href="https://linkedin.com/in/justinroderick">
-            <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
-              <Suspense
-                fallback={
-                  <Image
-                    src="/linkedin.svg"
-                    alt="LinkedIn"
-                    width={96}
-                    height={96}
-                  />
-                }
-              >
-                <CustomCanvas svgPath="/linkedin.svg" />
-              </Suspense>
-            </div>
-          </Link>
-          <Link href="https://justinroderick.dev/resume.pdf">
-            <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
-              <Suspense
-                fallback={
-                  <Image
-                    src="/resume.svg"
-                    alt="Resume"
-                    width={96}
-                    height={96}
-                  />
-                }
-              >
-                <CustomCanvas svgPath="/resume.svg" />
-              </Suspense>
-            </div>
-          </Link>
+          <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
+            <Link href="https://github.com/justinroderick">
+              <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
+                <Suspense
+                  fallback={
+                    <Image
+                      src="/github.svg"
+                      alt="GitHub"
+                      width={96}
+                      height={96}
+                    />
+                  }
+                >
+                  <CustomCanvas svgPath="/github.svg" />
+                </Suspense>
+              </div>
+            </Link>
+            <Link href="https://linkedin.com/in/justinroderick">
+              <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
+                <Suspense
+                  fallback={
+                    <Image
+                      src="/linkedin.svg"
+                      alt="LinkedIn"
+                      width={96}
+                      height={96}
+                    />
+                  }
+                >
+                  <CustomCanvas svgPath="/linkedin.svg" />
+                </Suspense>
+              </div>
+            </Link>
+            <Link href="https://justinroderick.dev/resume.pdf">
+              <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
+                <Suspense
+                  fallback={
+                    <Image
+                      src="/resume.svg"
+                      alt="Resume"
+                      width={96}
+                      height={96}
+                    />
+                  }
+                >
+                  <CustomCanvas svgPath="/resume.svg" />
+                </Suspense>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
 
       <div
         ref={scrollContainerRef}
-        className="w-full lg:h-screen lg:overflow-y-scroll lg:snap-y lg:snap-mandatory"
+        className="w-full lg:overflow-y-auto lg:snap-y lg:snap-mandatory"
       >
         <div id="about" ref={aboutRef}>
           <About />
