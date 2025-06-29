@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import Content from './_components/content';
-import Loading from './_components/loading';
+import Loader from './_components/loader';
 
 export default function Home() {
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<Loader />}>
       <Content />
     </Suspense>
   );
