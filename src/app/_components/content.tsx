@@ -4,19 +4,14 @@ import About from './about';
 import Projects from './projects';
 import Experience from './experience';
 import { Button } from '@/components/ui/button';
-import dynamic from 'next/dynamic';
+
 import Link from 'next/link';
 
 import { useWindowSize } from '@/hooks/useWindowSize';
 
-const CustomCanvas = dynamic(
-  () => import('./three/canvas').then((mod) => mod.CustomCanvas),
-  {
-    ssr: false,
-  }
-);
+import { CustomCanvas } from './three/canvas';
 
-import { Suspense, useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function Content() {
   const aboutRef = useRef<HTMLDivElement | null>(null);
@@ -124,50 +119,17 @@ export default function Content() {
           <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
             <Link href="https://github.com/justinroderick">
               <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
-                <Suspense
-                  fallback={
-                    <Image
-                      src="/github.svg"
-                      alt="GitHub"
-                      width={96}
-                      height={96}
-                    />
-                  }
-                >
-                  <CustomCanvas svgPath="/github.svg" />
-                </Suspense>
+                <CustomCanvas svgPath="/github.svg" />
               </div>
             </Link>
             <Link href="https://linkedin.com/in/justinroderick">
               <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
-                <Suspense
-                  fallback={
-                    <Image
-                      src="/linkedin.svg"
-                      alt="LinkedIn"
-                      width={96}
-                      height={96}
-                    />
-                  }
-                >
-                  <CustomCanvas svgPath="/linkedin.svg" />
-                </Suspense>
+                <CustomCanvas svgPath="/linkedin.svg" />
               </div>
             </Link>
             <Link href="https://justinroderick.dev/resume.pdf">
               <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
-                <Suspense
-                  fallback={
-                    <Image
-                      src="/resume.svg"
-                      alt="Resume"
-                      width={96}
-                      height={96}
-                    />
-                  }
-                >
-                  <CustomCanvas svgPath="/resume.svg" />
-                </Suspense>
+                <CustomCanvas svgPath="/resume.svg" />
               </div>
             </Link>
           </div>
