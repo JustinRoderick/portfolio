@@ -2,14 +2,6 @@
 
 import dynamic from 'next/dynamic';
 
-const Content = dynamic(
-  () =>
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(import('./content'));
-      }, 2000); // ~2s delay
-    }),
-  { ssr: false, suspense: true }
-);
+const Content = dynamic(() => import('./content'), { ssr: false });
 
 export default Content;
