@@ -116,7 +116,7 @@ export default function Content() {
             </Button>
           </div>
 
-          <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
+          {/* <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
             <Link href="https://github.com/justinroderick">
               <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
                 <CustomCanvas svgPath="/github.svg" />
@@ -132,7 +132,7 @@ export default function Content() {
                 <CustomCanvas svgPath="/resume.svg" />
               </div>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
 
