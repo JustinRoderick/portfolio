@@ -1,7 +1,7 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { lazy } from 'react';
 
-const Content = dynamic(() => import('./content'), { ssr: false });
+const Content = lazy(() => import('./content'));
 
 export default Content;
