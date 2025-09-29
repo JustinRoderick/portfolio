@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
@@ -6,11 +6,16 @@ import { useFrame } from '@react-three/fiber';
 
 interface SvgFigureProps {
   svgPath: string;
+  onLoaded?: () => void;
 }
 
-const SvgFigure: React.FC<SvgFigureProps> = ({ svgPath }) => {
+const SvgFigure: React.FC<SvgFigureProps> = ({ svgPath, onLoaded }) => {
   const groupRef = useRef<THREE.Group | null>(null);
   const svgData = useLoader(SVGLoader, svgPath);
+
+  useEffect(() => {
+    onLoaded?.();
+  }, [svgData, onLoaded]);
 
   useFrame(({ clock }) => {
     const group = groupRef.current;

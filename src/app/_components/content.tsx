@@ -1,24 +1,47 @@
 'use client';
-import Image from 'next/image';
+
 import About from './about';
 import Projects from './projects';
 import Experience from './experience';
 import { Button } from '@/components/ui/button';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 
 import { useWindowSize } from '@/hooks/useWindowSize';
 
-import { CustomCanvas } from './three/canvas';
-
 import { useEffect, useState, useRef } from 'react';
+
+const CustomCanvas = dynamic<{ svgPath: string; onReady?: () => void }>(
+  () => import('./three/canvas').then((m) => m.CustomCanvas),
+  { ssr: false }
+);
+
+function IconCanvas({ svgPath }: { svgPath: string }) {
+  const [ready, setReady] = useState(false);
+  return (
+    <div className="relative w-full h-full">
+      <div className="absolute inset-0">
+        <CustomCanvas svgPath={svgPath} onReady={() => setReady(true)} />
+      </div>
+      {!ready && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <img
+            src={svgPath}
+            alt="icon"
+            className="max-w-[52%] max-h-[52%] select-none"
+          />
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Content() {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const projectsRef = useRef<HTMLDivElement | null>(null);
   const experienceRef = useRef<HTMLDivElement | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-
   const [activeSection, setActiveSection] = useState<string>('about');
 
   const { width } = useWindowSize();
@@ -119,17 +142,17 @@ export default function Content() {
           <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
             <Link href="https://github.com/justinroderick" target="_blank">
               <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
-                <CustomCanvas svgPath="/github.svg" />
+                <IconCanvas svgPath="/github.svg" />
               </div>
             </Link>
             <Link href="https://linkedin.com/in/justinroderick" target="_blank">
               <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
-                <CustomCanvas svgPath="/linkedin.svg" />
+                <IconCanvas svgPath="/linkedin.svg" />
               </div>
             </Link>
             <Link href="https://justinroderick.dev/resume.pdf" target="_blank">
               <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-110">
-                <CustomCanvas svgPath="/resume.svg" />
+                <IconCanvas svgPath="/resume.svg" />
               </div>
             </Link>
           </div>
