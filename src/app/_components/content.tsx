@@ -4,6 +4,7 @@ import About from './about';
 import Projects from './projects';
 import Experience from './experience';
 import { Button } from '@/components/ui/button';
+import { projects, experience } from "@/consts/index"
 
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -106,37 +107,88 @@ export default function Content() {
   }, [isDesktop]);
 
   return (
-    <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-screen">
+    <div className="flex flex-col min-h-screen lg:grid lg:grid-cols-2 lg:h-screen">
       <div className="flex flex-col items-center justify-start pt-16 px-4 lg:sticky lg:top-0 lg:justify-center lg:pt-0 lg:pl-20 lg:px-0">
         <div className="flex flex-col items-center">
           <h1 className="text-4xl p-6 text-white font-bold w-full text-center animate-fade-down xl:text-5xl">
             Justin Roderick
           </h1>
           <p className="text-lg pb-10 text-white w-full text-center animate-fade-down xl:text-2xl">
-            Software Engineering Student @ UCF
+            Computer Science Student @ UCF
           </p>
           <div className="flex flex-row lg:flex-col gap-6 mt-4 lg:mt-8">
-            <Button
-              className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'about' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
-              variant="ghost"
-              onClick={() => scrollToSection(aboutRef, 'about')}
-            >
-              About
-            </Button>
-            <Button
-              className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'projects' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
-              variant="ghost"
-              onClick={() => scrollToSection(projectsRef, 'projects')}
-            >
-              Projects
-            </Button>
-            <Button
-              className={`text-white xl:text-lg md:text-md hover:bg-fuchsia-900 hover:text-white transition-all duration-300 ${activeSection === 'experience' ? 'underline decoration-sky-400 decoration-2 underline-offset-4' : ''}`}
-              variant="ghost"
-              onClick={() => scrollToSection(experienceRef, 'experience')}
-            >
-              Experience
-            </Button>
+                  <Button
+        className={`
+          relative text-cyan-50 xl:text-lg md:text-md 
+          bg-slate-900/40 backdrop-blur-sm
+          border border-slate-700/50
+          hover:bg-slate-800/60 hover:border-cyan-400/50 hover:text-cyan-50
+          hover:shadow-[0_0_15px_rgba(34,211,238,0.3)]
+          transition-all duration-300
+          ${
+            activeSection === "about" ? "bg-slate-800/60 border-cyan-400/70 shadow-[0_0_15px_rgba(34,211,238,0.4)]" : ""
+          }
+        `}
+        variant="ghost"
+        onClick={() => scrollToSection(aboutRef, "about")}
+      >
+        <span className="relative inline-block">
+          About
+          {activeSection === "about" && (
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+          )}
+        </span>
+      </Button>
+
+      <Button
+        className={`
+          relative text-cyan-50 xl:text-lg md:text-md 
+          bg-slate-900/40 backdrop-blur-sm
+          border border-slate-700/50
+          hover:bg-slate-800/60 hover:border-cyan-400/50 hover:text-cyan-50
+          hover:shadow-[0_0_15px_rgba(34,211,238,0.3)]
+          transition-all duration-300
+          ${
+            activeSection === "projects"
+              ? "bg-slate-800/60 border-cyan-400/70 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+              : ""
+          }
+        `}
+        variant="ghost"
+        onClick={() => scrollToSection(projectsRef, "projects")}
+      >
+        <span className="relative inline-block">
+          Projects
+          {activeSection === "projects" && (
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+          )}
+        </span>
+      </Button>
+
+      <Button
+        className={`
+          relative text-cyan-50 xl:text-lg md:text-md 
+          bg-slate-900/40 backdrop-blur-sm
+          border border-slate-700/50
+          hover:bg-slate-800/60 hover:border-cyan-400/50 hover:text-cyan-50
+          hover:shadow-[0_0_15px_rgba(34,211,238,0.3)]
+          transition-all duration-300
+          ${
+            activeSection === "experience"
+              ? "bg-slate-800/60 border-cyan-400/70 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+              : ""
+          }
+        `}
+        variant="ghost"
+        onClick={() => scrollToSection(experienceRef, "experience")}
+      >
+        <span className="relative inline-block">
+          Experience
+          {activeSection === "experience" && (
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+          )}
+        </span>
+      </Button>
           </div>
 
           <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
@@ -159,18 +211,15 @@ export default function Content() {
         </div>
       </div>
 
-      <div
-        ref={scrollContainerRef}
-        className="w-full lg:overflow-y-auto lg:snap-y lg:snap-mandatory"
-      >
+       <div ref={scrollContainerRef} className="w-full lg:overflow-y-auto lg:snap-y lg:snap-mandatory">
         <div id="about" ref={aboutRef}>
           <About />
         </div>
         <div id="projects" ref={projectsRef}>
-          <Projects />
+          <Projects projects={projects} />
         </div>
         <div id="experience" ref={experienceRef}>
-          <Experience />
+          <Experience experience={experience} />
         </div>
       </div>
     </div>
