@@ -1,50 +1,66 @@
 export const projects = [
   {
-    name: '',
-    duration: '',
+    name: "LVAD Cannula Optimizer",
+    duration: "Aug 2024 - May 2025",
     description: {
-      paragraph: '',
-      tags: [''],
+      paragraph:
+        "A medical software application that determines optimal cannula positioning for Left Ventricle Assist Devices to minimize post-implant complications. Built with Next.js monorepo architecture.",
+      tags: ["Next.js", "TypeScript", "tRPC", "Drizzle", "Docker", "AWS"],
     },
-    logo: '',
-    image: '',
-    link: '',
+    logo: "",
+    image: "/medical-software-interface.jpg",
+    link: "https://github.com",
   },
-];
+  {
+    name: "Portfolio Website",
+    duration: "2024",
+    description: {
+      paragraph:
+        "A modern, responsive portfolio website showcasing projects and experience with smooth animations and interactive elements.",
+      tags: ["React", "Next.js", "Tailwind CSS", "TypeScript"],
+    },
+    logo: "",
+    image: "/modern-portfolio-website.png",
+    link: "https://github.com",
+  },
+]
 
 export const experience = [
   {
-    company: 'Orlando Health',
-    role: 'Senior Capstone Project',
-    date: 'Aug. 2024 – May. 2025',
+    company: "Orlando Health",
+    role: "Senior Capstone Project",
+    date: "Aug. 2024 – May. 2025",
     description: [
-      'Worked with a small group of developers to create software that helps determine the optimal angle and position of the cannula from a Left Ventricle Assist Device to limit complications after the device is implanted, such as strokes.',
-      'Set up a Next.js Monorepo utilizing modern frameworks like tRPC, Drizzle, and Zod to maintain type safety, and used Turborepo to speed up dev server start times by 76%.',
-      'Created a CI/CD pipeline to automatically update and integrate changes to Docker containers hosted using AWS EC2 instances.',
+      "Worked with a small group of developers to create software that helps determine the optimal angle and position of the cannula from a Left Ventricle Assist Device to limit complications after the device is implanted, such as strokes.",
+      "Set up a Next.js Monorepo utilizing modern frameworks like tRPC, Drizzle, and Zod to maintain type safety, and used Turborepo to speed up dev server start times by 76%.",
+      "Created a CI/CD pipeline to automatically update and integrate changes to Docker containers hosted using AWS EC2 instances.",
       "Set up backend containers for tasks such as using the TotalSegmentator CLI tool to automate the segmentation of a patient's aorta based on their CT scans.",
-      'Finalist in the UCF Senior Design Showcase event.',
+      "Finalist in the UCF Senior Design Showcase event.",
     ],
-    logo: '',
+    logo: "",
+    technologies: ["Next.js", "tRPC", "Drizzle", "Docker", "AWS", "TypeScript"],
   },
   {
-    company: 'Freelance Web Developer',
-    role: 'Web Developer',
-    date: 'May. 2024 – Present',
-    description: ['Please provide details for this role.'],
-    logo: '',
-  },
-  {
-    company: 'Knight Hacks',
-    role: 'Dev Team',
-    date: 'Aug. 2023 – May. 2025',
+    company: "Freelance Web Developer",
+    role: "Web Developer",
+    date: "May. 2024 – Present",
     description: [
-      'Collaborated with the operations team to plan and organize hackathons and other Knight Hacks events.',
-      'These events include workshops that taught important Software Development topics such as OOP, Git, and Full-Stack development.',
+      "Developed custom web solutions for clients across various industries.",
+      "Built responsive, modern websites using React, Next.js, and Tailwind CSS.",
+      "Implemented SEO best practices and performance optimizations.",
     ],
-    logo: '',
+    logo: "",
+    technologies: ["React", "Next.js", "Tailwind CSS", "TypeScript"],
   },
-];
-
-export const NAV_LINKS = [
-  // Assuming this is defined elsewhere in the original code
-];
+  {
+    company: "Knight Hacks",
+    role: "Dev Team",
+    date: "Aug. 2023 – May. 2025",
+    description: [
+      "Collaborated with the operations team to plan and organize hackathons and other Knight Hacks events.",
+      "These events include workshops that taught important Software Development topics such as OOP, Git, and Full-Stack development.",
+    ],
+    logo: "",
+    technologies: ["JavaScript", "React", "Node.js", "Git"],
+  },
+]
