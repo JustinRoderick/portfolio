@@ -4,7 +4,8 @@ import About from './about';
 import Projects from './projects';
 import Experience from './experience';
 import { Button } from '@/components/ui/button';
-import { projects, experience } from "@/consts/index"
+import { projects, experience } from '@/consts/index';
+import Image from 'next/image';
 
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -22,16 +23,12 @@ function IconCanvas({ svgPath }: { svgPath: string }) {
   const [ready, setReady] = useState(false);
   return (
     <div className="relative w-full h-full">
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-fuchsia-950">
         <CustomCanvas svgPath={svgPath} onReady={() => setReady(true)} />
       </div>
       {!ready && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img
-            src={svgPath}
-            alt="icon"
-            className="max-w-[52%] max-h-[52%] select-none"
-          />
+        <div className="absolute inset-0 flex items-center justify-center bg-fuchsia-950">
+          <Image src={svgPath} alt="icon" width={52} height={52} />
         </div>
       )}
     </div>
@@ -117,8 +114,8 @@ export default function Content() {
             Computer Science Student @ UCF
           </p>
           <div className="flex flex-row lg:flex-col gap-6 mt-4 lg:mt-8">
-                  <Button
-        className={`
+            <Button
+              className={`
           relative text-cyan-50 xl:text-lg md:text-md 
           bg-slate-900/40 backdrop-blur-sm
           border border-slate-700/50
@@ -126,22 +123,24 @@ export default function Content() {
           hover:shadow-[0_0_15px_rgba(34,211,238,0.3)]
           transition-all duration-300
           ${
-            activeSection === "about" ? "bg-slate-800/60 border-cyan-400/70 shadow-[0_0_15px_rgba(34,211,238,0.4)]" : ""
+            activeSection === 'about'
+              ? 'bg-slate-800/60 border-cyan-400/70 shadow-[0_0_15px_rgba(34,211,238,0.4)]'
+              : ''
           }
         `}
-        variant="ghost"
-        onClick={() => scrollToSection(aboutRef, "about")}
-      >
-        <span className="relative inline-block">
-          About
-          {activeSection === "about" && (
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
-          )}
-        </span>
-      </Button>
+              variant="ghost"
+              onClick={() => scrollToSection(aboutRef, 'about')}
+            >
+              <span className="relative inline-block">
+                About
+                {activeSection === 'about' && (
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+                )}
+              </span>
+            </Button>
 
-      <Button
-        className={`
+            <Button
+              className={`
           relative text-cyan-50 xl:text-lg md:text-md 
           bg-slate-900/40 backdrop-blur-sm
           border border-slate-700/50
@@ -149,24 +148,24 @@ export default function Content() {
           hover:shadow-[0_0_15px_rgba(34,211,238,0.3)]
           transition-all duration-300
           ${
-            activeSection === "projects"
-              ? "bg-slate-800/60 border-cyan-400/70 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
-              : ""
+            activeSection === 'projects'
+              ? 'bg-slate-800/60 border-cyan-400/70 shadow-[0_0_15px_rgba(34,211,238,0.4)]'
+              : ''
           }
         `}
-        variant="ghost"
-        onClick={() => scrollToSection(projectsRef, "projects")}
-      >
-        <span className="relative inline-block">
-          Projects
-          {activeSection === "projects" && (
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
-          )}
-        </span>
-      </Button>
+              variant="ghost"
+              onClick={() => scrollToSection(projectsRef, 'projects')}
+            >
+              <span className="relative inline-block">
+                Projects
+                {activeSection === 'projects' && (
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+                )}
+              </span>
+            </Button>
 
-      <Button
-        className={`
+            <Button
+              className={`
           relative text-cyan-50 xl:text-lg md:text-md 
           bg-slate-900/40 backdrop-blur-sm
           border border-slate-700/50
@@ -174,21 +173,21 @@ export default function Content() {
           hover:shadow-[0_0_15px_rgba(34,211,238,0.3)]
           transition-all duration-300
           ${
-            activeSection === "experience"
-              ? "bg-slate-800/60 border-cyan-400/70 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
-              : ""
+            activeSection === 'experience'
+              ? 'bg-slate-800/60 border-cyan-400/70 shadow-[0_0_15px_rgba(34,211,238,0.4)]'
+              : ''
           }
         `}
-        variant="ghost"
-        onClick={() => scrollToSection(experienceRef, "experience")}
-      >
-        <span className="relative inline-block">
-          Experience
-          {activeSection === "experience" && (
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
-          )}
-        </span>
-      </Button>
+              variant="ghost"
+              onClick={() => scrollToSection(experienceRef, 'experience')}
+            >
+              <span className="relative inline-block">
+                Experience
+                {activeSection === 'experience' && (
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+                )}
+              </span>
+            </Button>
           </div>
 
           <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
@@ -211,7 +210,10 @@ export default function Content() {
         </div>
       </div>
 
-       <div ref={scrollContainerRef} className="w-full lg:overflow-y-auto lg:snap-y lg:snap-mandatory">
+      <div
+        ref={scrollContainerRef}
+        className="w-full lg:overflow-y-auto lg:snap-y lg:snap-mandatory"
+      >
         <div id="about" ref={aboutRef}>
           <About />
         </div>
