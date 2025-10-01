@@ -23,11 +23,11 @@ function IconCanvas({ svgPath }: { svgPath: string }) {
   const [ready, setReady] = useState(false);
   return (
     <div className="relative w-full h-full">
-      <div className="absolute inset-0 bg-fuchsia-950">
+      <div className="absolute inset-0">
         <CustomCanvas svgPath={svgPath} onReady={() => setReady(true)} />
       </div>
       {!ready && (
-        <div className="absolute inset-0 flex items-center justify-center bg-fuchsia-950">
+        <div className="absolute inset-0 flex items-center justify-center">
           <Image src={svgPath} alt="icon" width={52} height={52} />
         </div>
       )}
