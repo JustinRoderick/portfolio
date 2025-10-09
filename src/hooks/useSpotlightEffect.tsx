@@ -17,18 +17,23 @@ const useSpotlightEffect = (config = {}, enabled = true) => {
   const animationFrame = useRef(null);
 
   useEffect(() => {
-    if (!enabled) { 
+    if (!enabled) {
       if (canvasRef.current) {
         const ctx = canvasRef.current.getContext('2d');
         if (ctx) {
-          ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+          ctx.clearRect(
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height
+          );
         }
       }
       return;
     }
 
     const canvas = canvasRef.current;
-    if (!canvas) return; 
+    if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     ctxRef.current = ctx;
@@ -46,17 +51,16 @@ const useSpotlightEffect = (config = {}, enabled = true) => {
       targetPos.current = { x: e.clientX, y: e.clientY };
     };
 
-    const handleMouseLeave = () => {
-    };
+    const handleMouseLeave = () => {};
 
     const render = () => {
-      if (!canvas || !ctx || !enabled) { 
+      if (!canvas || !ctx || !enabled) {
         if (animationFrame.current) {
           cancelAnimationFrame(animationFrame.current);
           animationFrame.current = null;
         }
         if (canvas && ctx) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
         return;
       }
@@ -138,10 +142,13 @@ const useSpotlightEffect = (config = {}, enabled = true) => {
     window.addEventListener('resize', resizeCanvas);
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseleave', handleMouseLeave);
-    if (enabled) { 
-        targetPos.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 }; 
-        spotlightPos.current = { ...targetPos.current }; 
-        render();
+    if (enabled) {
+      targetPos.current = {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+      };
+      spotlightPos.current = { ...targetPos.current };
+      render();
     }
 
     // Store canvas in a variable for the cleanup function
@@ -149,21 +156,22 @@ const useSpotlightEffect = (config = {}, enabled = true) => {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      document.removeEventListener('mousemove', handleMouseMove); 
+      document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       if (animationFrame.current) {
         cancelAnimationFrame(animationFrame.current);
         animationFrame.current = null;
       }
       // Clear canvas on cleanup if it was enabled
-      if (currentCanvas) { // Use the stored variable
+      if (currentCanvas) {
+        // Use the stored variable
         const cleanupCtx = currentCanvas.getContext('2d');
         if (cleanupCtx) {
-            cleanupCtx.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
+          cleanupCtx.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
         }
       }
     };
-  }, [enabled, spotlightSize, spotlightIntensity, fadeSpeed, glowColor]); 
+  }, [enabled, spotlightSize, spotlightIntensity, fadeSpeed, glowColor]);
 
   return canvasRef;
 };

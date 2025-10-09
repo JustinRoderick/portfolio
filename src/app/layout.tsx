@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -48,11 +49,10 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={
-          'flex min-h-full h-screen overflow-hidden flex-col bg-cover bg-fuchsia-950 antialiased'
+          'flex min-h-full h-screen lg:overflow-hidden flex-col bg-cover bg-purple-950 antialiased'
         }
       >
         <SpotlightProvider>{children}</SpotlightProvider>
-        {/* {children} */}
       </body>
     </html>
   );

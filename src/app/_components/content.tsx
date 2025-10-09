@@ -1,5 +1,7 @@
 'use client';
 
+import type React from 'react';
+
 import About from './about';
 import Projects from './projects';
 import Experience from './experience';
@@ -28,7 +30,12 @@ function IconCanvas({ svgPath }: { svgPath: string }) {
       </div>
       {!ready && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <Image src={svgPath} alt="icon" width={52} height={52} />
+          <Image
+            src={svgPath || '/placeholder.svg'}
+            alt="icon"
+            width={52}
+            height={52}
+          />
         </div>
       )}
     </div>
@@ -58,6 +65,22 @@ export default function Content() {
     });
     setActiveSection(sectionId);
   };
+
+  useEffect(() => {
+    if (!isDesktop || !scrollContainerRef.current) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop += e.deltaY;
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: true });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [isDesktop]);
 
   useEffect(() => {
     const scrollableRoot = isDesktop ? scrollContainerRef.current : null;
@@ -106,14 +129,14 @@ export default function Content() {
   return (
     <div className="flex flex-col min-h-screen lg:grid lg:grid-cols-2 lg:h-screen">
       <div className="flex flex-col items-center justify-start pt-16 px-4 lg:sticky lg:top-0 lg:justify-center lg:pt-0 lg:pl-20 lg:px-0">
-        <div className="flex flex-col items-center">
-          <h1 className="text-4xl p-6 text-white font-bold w-full text-center animate-fade-down xl:text-5xl">
+        <div className="flex flex-col items-center lg:items-start w-full max-w-md">
+          <h1 className="text-4xl p-6 text-cyan-50 font-bold w-full text-left animate-fade-down xl:text-5xl">
             Justin Roderick
           </h1>
-          <p className="text-lg pb-10 text-white w-full text-center animate-fade-down xl:text-2xl">
+          <p className="text-lg pb-10 text-cyan-50 w-full text-left animate-fade-down xl:text-2xl">
             Computer Science Student @ UCF
           </p>
-          <div className="flex flex-row lg:flex-col gap-6 mt-4 lg:mt-8">
+          <div className="flex flex-row lg:flex-col gap-6 mt-12 lg:mt-16">
             <Button
               className={`
           relative text-cyan-50 xl:text-lg md:text-md 
@@ -190,7 +213,7 @@ export default function Content() {
             </Button>
           </div>
 
-          <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
+          <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center lg:justify-start">
             <Link href="https://github.com/justinroderick" target="_blank">
               <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-125">
                 <IconCanvas svgPath="/github.svg" />
