@@ -1,5 +1,5 @@
 'use client';
-import Loader from './loader'; 
+import Loader from './loader';
 
 import dynamic from 'next/dynamic';
 
