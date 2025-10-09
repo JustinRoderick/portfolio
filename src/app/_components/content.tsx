@@ -232,7 +232,7 @@ export default function Content() {
 
       <div
         ref={scrollContainerRef}
-        className="w-full lg:overflow-y-auto lg:snap-y lg:snap-mandatory lg:col-span-2"
+        className="w-full lg:overflow-y-auto lg:col-span-2 lg:snap-y lg:snap-mandatory"
       >
         <div id="about" ref={aboutRef}>
           <About />
