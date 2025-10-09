@@ -129,14 +129,14 @@ export default function Content() {
   return (
     <div className="flex flex-col min-h-screen lg:grid lg:grid-cols-2 lg:h-screen">
       <div className="flex flex-col items-center justify-start pt-16 px-4 lg:sticky lg:top-0 lg:justify-center lg:pt-0 lg:pl-20 lg:px-0">
-        <div className="flex flex-col items-center lg:items-start w-full max-w-md">
-          <h1 className="text-4xl p-6 text-cyan-50 font-bold w-full text-left animate-fade-down xl:text-5xl">
+        <div className="flex flex-col items-center w-full max-w-md">
+          <h1 className="text-4xl p-6 text-cyan-50 font-bold w-full animate-fade-down xl:text-5xl">
             Justin Roderick
           </h1>
-          <p className="text-lg pb-10 text-cyan-50 w-full text-left animate-fade-down xl:text-2xl">
+          <p className="text-lg pb-10 text-cyan-50 w-full animate-fade-down xl:text-2xl">
             Computer Science Student @ UCF
           </p>
-          <div className="flex flex-row lg:flex-col gap-6 mt-12 lg:mt-16">
+          <div className="flex flex-row lg:flex-col gap-6 mt-8 lg:mt-12">
             <Button
               className={`
           relative text-cyan-50 xl:text-lg md:text-md 
