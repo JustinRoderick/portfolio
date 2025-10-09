@@ -2,7 +2,7 @@
 
 export default function About() {
   return (
-    <section className="flex items-start justify-center pt-48 pb-24 px-4 sm:px-6 lg:px-8">
+    <section className="flex items-start justify-center px-6 py-8 lg:pt-48 lg:pb-24 lg:px-8">
       <div className="max-w-3xl w-full space-y-6">
         <h2 className="text-4xl font-bold text-balance mb-8 text-cyan-50">
           About Me

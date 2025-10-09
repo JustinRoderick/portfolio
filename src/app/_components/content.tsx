@@ -125,9 +125,9 @@ export default function Content() {
   }, [isDesktop]);
 
   return (
-    <div className="flex flex-col min-h-screen lg:grid lg:grid-cols-2 lg:h-screen">
-      <div className="flex flex-col items-center w-full justify-start pt-16 px-4 lg:sticky lg:top-0 lg:justify-center lg:pt-0 lg:pl-20 lg:px-0">
-        <div className="flex flex-col items-start">
+    <div className="flex flex-col min-h-screen lg:grid lg:grid-cols-3 lg:h-screen">
+      <div className="flex flex-col w-full pt-8 lg:sticky lg:top-0 lg:pt-0 lg:pl-20 lg:px-0 lg:col-span-1">
+        <div className="flex flex-col items-center justify-center">
           <h1 className="text-4xl p-6 text-cyan-50 font-bold w-full animate-fade-down xl:text-5xl">
             Justin Roderick
           </h1>
@@ -135,7 +135,7 @@ export default function Content() {
             Computer Science Student @ UCF
           </p>
         </div>
-        <div className="flex flex-row lg:flex-col gap-6 mt-8 lg:mt-12">
+        <div className="flex flex-row items-center justify-center lg:flex-col gap-6 mt-8 lg:mt-12">
           <Button
             className={`relative text-cyan-50 xl:text-lg md:text-md bg-slate-900/40 backdrop-blur-sm border border-slate-700/50 hover:bg-slate-800/60 hover:border-cyan-400/50 hover:text-cyan-50 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300
                 ${
@@ -194,7 +194,7 @@ export default function Content() {
           </Button>
         </div>
 
-        <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center lg:justify-start">
+        <div className="mt-12 lg:mt-20 flex flex-row gap-6 p-4 items-center justify-center">
           <Link href="https://github.com/justinroderick" target="_blank">
             <div className="w-16 h-16 lg:w-24 lg:h-24 transition-all duration-300 ease-in-out hover:scale-125">
               <IconCanvas svgPath="/github.svg" />
@@ -215,7 +215,7 @@ export default function Content() {
 
       <div
         ref={scrollContainerRef}
-        className="w-full lg:overflow-y-auto lg:snap-y lg:snap-mandatory"
+        className="w-full lg:overflow-y-auto lg:snap-y lg:snap-mandatory lg:col-span-2"
       >
         <div id="about" ref={aboutRef}>
           <About />
