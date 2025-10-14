@@ -222,7 +222,7 @@ export default function Content() {
               <IconCanvas svgPath="/linkedin.svg" />
             </div>
           </Link>
-          <Link href="/Justin_Roderick_Resume.pdf">
+          <Link href="/Justin_Roderick_Resume.pdf" target="_blank">
             <div className="w-16 h-16 lg:w-20 lg:h-20 transition-all duration-300 ease-in-out hover:scale-125">
               <IconCanvas svgPath="/resumeIcon.svg" />
             </div>
