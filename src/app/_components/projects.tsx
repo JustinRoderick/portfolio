@@ -47,6 +47,7 @@ export default function Projects({ projects }: ProjectsProps) {
                       src={project.image || '/placeholder.svg'}
                       alt={project.name}
                       fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (

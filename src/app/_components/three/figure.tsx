@@ -81,7 +81,13 @@ const SvgFigure: React.FC<SvgFigureProps> = ({ svgPath, onLoaded }) => {
         geometry.scale(scale, scale, 1);
         geometry.rotateX(Math.PI);
 
-        elements.push(<mesh geometry={geometry} material={material} />);
+        elements.push(
+          <mesh
+            key={`${pathIndex}-${shapeIndex}`}
+            geometry={geometry}
+            material={material}
+          />
+        );
       });
     });
 

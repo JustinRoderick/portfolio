@@ -49,7 +49,7 @@ export default function Content() {
   const isDesktop = width ? width >= 1024 : false;
 
   const scrollToSection = (
-    ref: React.RefObject<HTMLDivElement>,
+    ref: React.RefObject<HTMLDivElement | null>,
     sectionId: string
   ) => {
     const target = isDesktop ? scrollContainerRef.current : window;
