@@ -12,6 +12,7 @@ import { TailChase } from 'ldrs/react';
 import 'ldrs/react/TailChase.css';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import WebGL from 'three/examples/jsm/capabilities/WebGL.js';
 
 import { useWindowSize } from '@/hooks/useWindowSize';
 
@@ -23,12 +24,32 @@ const CustomCanvas = dynamic<{ svgPath: string; onReady?: () => void }>(
 );
 
 function IconCanvas({ svgPath }: { svgPath: string }) {
+  const [webGL2Available, setWebGL2Available] = useState<boolean | null>(null);
   const [ready, setReady] = useState(false);
+
+  // three.js requires WebGL2, and <Canvas> swallows renderer creation errors,
+  // so without this check browsers lacking WebGL2 show the spinner forever.
+  useEffect(() => {
+    setWebGL2Available(WebGL.isWebGL2Available());
+  }, []);
+
+  if (webGL2Available === false) {
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        <div className="relative w-1/2 h-1/2">
+          <Image src={svgPath} alt="" fill className="object-contain" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative w-full h-full">
-      <div className="absolute inset-0">
-        <CustomCanvas svgPath={svgPath} onReady={() => setReady(true)} />
-      </div>
+      {webGL2Available && (
+        <div className="absolute inset-0">
+          <CustomCanvas svgPath={svgPath} onReady={() => setReady(true)} />
+        </div>
+      )}
       {!ready && (
         <div className="absolute inset-0 flex items-center justify-center">
           <TailChase size="40" speed="1.75" color="black" />
@@ -222,11 +243,11 @@ export default function Content() {
               <IconCanvas svgPath="/linkedin.svg" />
             </div>
           </Link>
-          <Link href="/Justin_Roderick_Resume.pdf" target="_blank">
+          <a href="/Justin_Roderick_Resume.pdf" target="_blank">
             <div className="w-16 h-16 lg:w-20 lg:h-20 transition-all duration-300 ease-in-out hover:scale-125">
               <IconCanvas svgPath="/resumeIcon.svg" />
             </div>
-          </Link>
+          </a>
         </div>
       </div>
 

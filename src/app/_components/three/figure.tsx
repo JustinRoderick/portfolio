@@ -31,7 +31,7 @@ const SvgFigure: React.FC<SvgFigureProps> = ({ svgPath, onLoaded }) => {
     );
 
     svgData.paths.forEach((path) => {
-      const shapes = SVGLoader.createShapes(path);
+      const shapes = path.toShapes();
       shapes.forEach((shape) => {
         const geom = new THREE.ShapeGeometry(shape);
         geom.computeBoundingBox();
@@ -56,7 +56,7 @@ const SvgFigure: React.FC<SvgFigureProps> = ({ svgPath, onLoaded }) => {
 
     const elements: React.JSX.Element[] = [];
     svgData.paths.forEach((path, pathIndex) => {
-      const shapes = SVGLoader.createShapes(path);
+      const shapes = path.toShapes();
 
       const material = new THREE.MeshBasicMaterial({
         color: path.color,
